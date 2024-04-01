@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import Buttons from './Buttons'
 import { jokes } from "../../data/jokes"
-const getRandomStoryIndex = () => {
-  return Math.floor(Math.random() * jokes.length);
-}
+
 function Content() {
   const [cookies, setCookie] = useCookies(['readJokes'])
   const readJokes = cookies.readJokes || []
@@ -57,7 +55,6 @@ function Content() {
               <Buttons handleNextStory={handleNextStory}/> 
             </>
         }
-        
       </div>
     </main>
   )

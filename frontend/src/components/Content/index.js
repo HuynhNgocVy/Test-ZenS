@@ -15,7 +15,7 @@ function Content() {
       const unreadJokes = jokes
         .map((_, index) => index)
         .filter(index => !readJokes.includes(index));
-      const randomIndex = Math.floor(Math.random() * unreadJokes.length);
+      const randomIndex = Math.floor(Math.random() * unreadJokes.length)
       return unreadJokes[randomIndex]; 
     }
   })
@@ -25,14 +25,14 @@ function Content() {
       .filter(index => !readJokes.includes(index))
 
     if (unreadJokes.length === 0) {
-      setStoryIndex(-1);
+      setStoryIndex(-1)
       setVisiable(false)
-      return;
+      return
     }
   
     const randomIndex = Math.floor(Math.random() * unreadJokes.length);
-    setStoryIndex(unreadJokes[randomIndex]);
-    setCookie('readJokes', [...readJokes, unreadJokes[randomIndex]], { path: '/' });
+    setStoryIndex(unreadJokes[randomIndex])
+    setCookie('readJokes', [...readJokes, unreadJokes[randomIndex]], { path: '/' })
   }
 
   useEffect(() => {

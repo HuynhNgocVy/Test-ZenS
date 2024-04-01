@@ -70,10 +70,11 @@
 #title .container h2 {
   font-weight: 600;
   letter-spacing: 1px;
+  font-size: 32px;
 }
 #title .container p {
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 15px;
   font-weight: 500;
 }
 
@@ -91,7 +92,7 @@
 .content-joke {
   width: 100%;
   color: var(--dark-gray-color);
-  font-size: 17px;
+  font-size: 20px;
   line-height: 26px;
 }
 #content .container .line {
@@ -159,5 +160,10 @@
   }
   .btn {
     max-width: 200px;
+  }
+}
+@media (max-width: 850px) { 
+  #footer .desc br {
+    display: none;
   }
 }

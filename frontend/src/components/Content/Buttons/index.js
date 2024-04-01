@@ -1,13 +1,13 @@
 import React from 'react'
 
-function Buttons() {
+function Buttons({ handleNextStory }) {
   return (
     <div className='buttons-container'>  
       <div>
-        <button className='btn btn-like'>This is Funny!</button>
+        <button onClick={handleNextStory} className='btn btn-like'>This is Funny!</button>
       </div>
       <div>
-        <button className='btn btn-dislike'>This is not funny.</button>
+        <button onClick={handleNextStory} className='btn btn-dislike'>This is not funny.</button>
       </div>
     </div>
   )

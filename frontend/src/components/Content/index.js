@@ -1,22 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import Buttons from './Buttons'
-
+import { jokes } from "../../data/jokes"
+const getRandomStoryIndex = () => {
+  return Math.floor(Math.random() * jokes.length);
+}
 function Content() {
+  const [cookies, setCookie] = useCookies(['readJokes'])
+  const readJokes = cookies.readJokes || []
+  const [ visable, setVisiable ] = useState(true)
+  const [ storyIndex, setStoryIndex ] = useState(() => {
+    if (readJokes.length === jokes.length) {
+      setVisiable(false)
+      return -1
+    } else {
+      const unreadJokes = jokes
+        .map((_, index) => index)
+        .filter(index => !readJokes.includes(index));
+      const randomIndex = Math.floor(Math.random() * unreadJokes.length);
+      return unreadJokes[randomIndex]; 
+    }
+  })
+  const handleNextStory = () => {
+    const unreadJokes = jokes
+      .map((_, index) => index) 
+      .filter(index => !readJokes.includes(index))
+
+    if (unreadJokes.length === 0) {
+      setStoryIndex(-1);
+      setVisiable(false)
+      return;
+    }
+  
+    const randomIndex = Math.floor(Math.random() * unreadJokes.length);
+    setStoryIndex(unreadJokes[randomIndex]);
+    setCookie('readJokes', [...readJokes, unreadJokes[randomIndex]], { path: '/' });
+  }
+
+  useEffect(() => {
+    if (readJokes.length === jokes.length) {
+      setStoryIndex(-1)
+      setVisiable(false)
+    }
+  }, [readJokes])
   return (
     <main id='content'>
       <div className='container'>
         <div className='content-joke'>
           <p>
-          A child asked his father, "How were people born?" So his father said, "Adam and Eve made babies, then their babies became adults and made babies, and so on."
-
-          The child then went to his mother, asked her the same question and she told him, "We were monkeys then we evolved to become like we are now."
-
-          The child ran back to his father and said, "You lied to me!" His father replied, "No, your mom was talking about her side of the family."
-
+            {jokes[storyIndex] ? jokes[storyIndex] : "That's all the jokes for today! Come back another day!"}
           </p>
         </div>
-        <div className='line'></div>
-        <Buttons />
+        { visable &&
+            <>
+              <div className='line'></div>
+              <Buttons handleNextStory={handleNextStory}/> 
+            </>
+        }
+        
       </div>
     </main>
   )
